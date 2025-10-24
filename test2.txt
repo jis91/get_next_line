@@ -1,0 +1,3 @@
+I am get next line
+At least I try to be
+Get_Next_line

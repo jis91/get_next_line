@@ -6,7 +6,7 @@
 /*   By: jeff <jeff@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 11:55:42 by jeff              #+#    #+#             */
-/*   Updated: 2025/10/21 13:08:27 by jeff             ###   ########.fr       */
+/*   Updated: 2025/10/24 01:25:46 by jeff             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ size_t	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
+	if (s == NULL)
+	{
+		printf("src is NULL");
+		return (-1);
+	}
 	while (s[i])
 		i++;
 	return (i);
@@ -29,6 +34,11 @@ char	*ft_strchr(const char *src, int c)
 
 	a = (char) c;
 	i = 0;
+	if (src == NULL)
+	{
+		printf("src is NULL");
+		return (NULL);
+	}
 	while (src[i])
 	{
 		if (src[i] == a)
@@ -39,7 +49,6 @@ char	*ft_strchr(const char *src, int c)
 		return ((char *) &src[i]);
 	return (NULL);
 }
-
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {
@@ -61,4 +70,25 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		result[j++] = s2[i++];
 	result[j] = '\0';
 	return (result);
+}
+
+char	*ft_strdup(const char *src)
+{
+	size_t	len;
+	size_t	i;
+	char	*dup;
+
+	if (src == NULL)
+		return (NULL);
+	len = ft_strlen(src);
+	dup = malloc(sizeof(char) * len + 1);
+	if (!dup)
+		return (NULL);
+	while (src[i])
+	{
+		dup[i] = src[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }
