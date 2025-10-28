@@ -50,26 +50,27 @@ char	*ft_strchr(const char *src, int c)
 	return (NULL);
 }
 
+void	ft_check_src(char *s1)
+{
+	s1 = malloc(sizeof(char) * 1);
+	if (!s1)
+	{
+		return ;
+		s1[0] = '\0';
+	}
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*result;
 	size_t	i;
 	size_t	j;
-	size_t	total;
 
 	if (!s1)
-	{
-		s1 = malloc(sizeof(char) * 1);
-		if (!s1)
-			return (NULL);
-		s1[0] = '\0';
-	}
-	if (!s2)
-		return (NULL);
-	total = ft_strlen(s1) + ft_strlen(s2);
+		ft_check_src(s1);
 	i = 0;
 	j = 0;
-	result = malloc(sizeof(char) * (total + 1));
+	result = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
 	if (!result)
 	{
 		free(s1);
@@ -81,5 +82,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[i])
 		result[j++] = s2[i++];
 	result[j] = '\0';
+	free(s1);
 	return (result);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeff <jeff@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jstrasse <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/23 11:50:55 by jeff              #+#    #+#             */
-/*   Updated: 2025/10/24 02:12:27 by jeff             ###   ########.fr       */
+/*   Created: 2025/10/28 15:22:45 by jstrasse          #+#    #+#             */
+/*   Updated: 2025/10/28 15:24:21 by jstrasse         ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,13 @@ static char	*get_remaining_content(char *read_content)
 
 char	*get_next_line(int fd)
 {
-	static char	*read_content;
+	static char	*read_content[MAX_FD];
 	char		*line;
+	char		*buffer;
 
+    buffer = (char *)malloc(BUFFER_SIZE + 1) * sizeof(char);
+    if (!buffer)
+        return (NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (read_content == NULL)
@@ -120,46 +124,3 @@ char	*get_next_line(int fd)
 	read_content = get_remaining_content(read_content);
 	return (line);
 }
-/*
-int	main(void)
-{
-	char	*line;
-	int		fd1;
-	int		fd2;
-	int		fd3;
-	int		empty_fd;
-
-	fd1 = open("test.txt", O_RDONLY);
-	printf("=== TESTING fd1 ===\n");
-	while ((line = get_next_line(fd1)))
-	{
-		printf("%s\n", line);
-		free(line);
-	}
-	close(fd1);
-	fd2 = open("test2.txt", O_RDONLY);
-	printf("=== TESTING fd2 ===\n");
-        while ((line = get_next_line(fd2)))
-        {
-                printf("%s\n", line);
-                free(line);
-        }
-	close(fd2);
-        fd3 = open("no_nl.txt", O_RDONLY);
-	printf("=== TESTING fd3 no_nl.txt ===\n");
-        while ((line = get_next_line(fd3)))
-        {
-                printf("%s\n", line);
-                free(line);
-        }
-	close(fd3);
-        empty_fd = open("empty.txt", O_RDONLY);
-	printf("=== TESTING empty fd ===\n");
-   	while ((line = get_next_line(empty_fd)))
-        {
-                printf("%s\n", line);
-                free(line);
-        }	
-	close(empty_fd);
-	return (0);
-}*/
