@@ -22,6 +22,10 @@
 #  define BUFFER_SIZE 1000000
 # endif
 
+# ifndef MAX_FD
+#  define MAX_FD 1024
+# endif
+
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *src, int c);

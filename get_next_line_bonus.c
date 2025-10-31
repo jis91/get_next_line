@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jstrasse <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: jeff <jeff@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:22:45 by jstrasse          #+#    #+#             */
-/*   Updated: 2025/10/28 15:24:21 by jstrasse         ###   ####lausanne.ch   */
+/*   Updated: 2025/10/29 18:18:56 by jeff             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 static char	*read_and_fill(int fd, char *read_content)
 {
@@ -97,30 +96,26 @@ char	*get_next_line(int fd)
 {
 	static char	*read_content[MAX_FD];
 	char		*line;
-	char		*buffer;
 
-    buffer = (char *)malloc(BUFFER_SIZE + 1) * sizeof(char);
-    if (!buffer)
-        return (NULL);
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (read_content == NULL)
+	if (!read_content[fd])
 	{
-		read_content = (char *)malloc(sizeof(char));
-		if (!read_content)
+		read_content[fd] = malloc(sizeof(char *));
+		if (!read_content[fd])
 			return (NULL);
-		read_content[0] = '\0';
+		read_content[fd][0] = '\0';
 	}
-	read_content = read_and_fill(fd, read_content);
-	if (!read_content)
+	read_content[fd] = read_and_fill(fd, read_content[fd]);
+	if (!read_content[fd])
 		return (NULL);
-	line = ft_get_line(read_content);
+	line = ft_get_line(read_content[fd]);
 	if (!line)
 	{
-		free(read_content);
-		read_content = NULL;
+		free(read_content[fd]);
+		read_content[fd] = NULL;
 		return (NULL);
 	}
-	read_content = get_remaining_content(read_content);
+	read_content[fd] = get_remaining_content(read_content[fd]);
 	return (line);
 }
