@@ -119,3 +119,46 @@ char	*get_next_line(int fd)
 	read_content[fd] = get_remaining_content(read_content[fd]);
 	return (line);
 }
+
+
+int	main(void)
+{
+	char	*line;
+	int		fd1;
+	int		fd2;
+	int		fd3;
+	int 	fd4;
+	int		empty_fd;
+	int 	i;
+
+	i = 1;
+	fd1 = open("test.txt", O_RDONLY);
+	fd2 = open("test2.txt", O_RDONLY);
+	fd3 = open("test3.txt", O_RDONLY);
+	fd4 = open("no_nl.txt", O_RDONLY);
+	empty_fd = open("empty.txt", O_RDONLY);
+	printf("=== TESTING fd1 ===\n");
+	while (i < 7)
+	{
+	line = get_next_line(fd1);
+	printf("line %d: %s\n", i, line);
+	free(line);
+	line = get_next_line(fd2);
+	printf("line %d: %s\n", i, line);
+	free(line);
+	line = get_next_line(fd3);
+	printf("line %d: %s\n", i, line);
+	free(line);
+	line = get_next_line(empty_fd);
+	printf("line %d: %s\n", i, line);
+	free(line);
+	i++;
+	}
+	close(fd1);
+	close(fd2);
+	close(fd3);
+	close(fd4);
+	close(empty_fd);
+	
+	return (0);
+}
