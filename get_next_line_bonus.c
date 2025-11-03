@@ -119,8 +119,7 @@ char	*get_next_line(int fd)
 	read_content[fd] = get_remaining_content(read_content[fd]);
 	return (line);
 }
-
-
+/*
 int	main(void)
 {
 	char	*line;
@@ -161,4 +160,4 @@ int	main(void)
 	close(empty_fd);
 	
 	return (0);
-}
+}*/

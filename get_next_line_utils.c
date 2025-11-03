@@ -54,10 +54,8 @@ void	ft_check_src(char *s1)
 {
 	s1 = malloc(sizeof(char) * 1);
 	if (!s1)
-	{
 		return ;
-		s1[0] = '\0';
-	}
+	s1[0] = '\0';
 }
 
 char	*ft_strjoin(char *s1, char *s2)
